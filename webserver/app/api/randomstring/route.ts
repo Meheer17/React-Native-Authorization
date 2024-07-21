@@ -1,13 +1,9 @@
 import { NextResponse } from "next/server";
 import * as bcrypt from 'bcrypt';
 import { GetSalt, PutSalt } from "@/aws/AwsDB.RandomStrings";
-import { DeleteAllTable, createTable, deleteTable } from "@/aws/AwsDBTable";
 import SearchUsers from "@/aws/AwsDB.Users";
 
 export async function POST(req: Request) {
-    // await createTable();
-    // await DeleteAllTable();
-
     const salt = await bcrypt.genSalt(12);
     const { name } = await req.json();
     if (!name) return NextResponse.json({ error: 'Name is required' }, { status: 400 });
